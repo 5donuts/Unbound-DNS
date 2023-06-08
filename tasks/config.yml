@@ -26,7 +26,6 @@
     - Ensure DNSSEC validation returns NOERROR and an IP address when expected
 
 - name: Reduce FTL (PiHole) EDNS reassembly buffer size
-  become: yes
   ansible.builtin.template:
     src: templates/99-edns.conf.j2
     dest: /etc/dnsmasq.d/99-edns.conf
