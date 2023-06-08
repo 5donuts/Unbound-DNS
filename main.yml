@@ -38,3 +38,10 @@
   tasks:
     - name: Write Unbound configuration files
       ansible.builtin.import_tasks: tasks/config.yml
+
+    # See: https://docs.pi-hole.net/guides/dns/unbound/#disable-resolvconfconf-entry-for-unbound-required-for-debian-bullseye-releases
+    - name: Disable resolvconf.conf entry for Unbound
+      ansible.builtin.import_tasks: tasks/bullseye.yml
+      when:
+        - ansible_facts.os_family == "Debian"
+        - ansible_facts.distribution_version >= 11
