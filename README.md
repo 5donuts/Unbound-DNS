@@ -4,6 +4,9 @@ Ansible playbook to configure [Unbound](https://nlnetlabs.nl/projects/unbound/ab
 
 For details, see: https://docs.pi-hole.net/guides/dns/unbound/
 
+This playbook is intended to supplement Jeff Geerling's Internet Pi playbook.
+See: [`geerlingguy/internet-pi`](https://github.com/geerlingguy/internet-pi)
+
 ## Requirements
 
 * A Raspberry Pi running PiHole
