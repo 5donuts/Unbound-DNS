@@ -16,6 +16,9 @@ See: [`geerlingguy/internet-pi`](https://github.com/geerlingguy/internet-pi)
 
 Modify `inventory.ini` with your pi's IP address (or specify `connection=local`).
 
+If desired, you can change any part of the Unbound configuration by specifying values in `override.yml`.
+See `defaults.yml` for details.
+
 ## Usage
 
 Log in to your PiHole admin panel and go to the Settings/DNS page.
