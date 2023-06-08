@@ -34,7 +34,7 @@
         state: latest
         name:
           - unbound
-          - dig
+          - dnsutils # for dig
 
     - name: Write /etc/unbound/unbound.conf.d/pi-hole.conf
       ansible.builtin.template:
