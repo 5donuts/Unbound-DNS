@@ -15,16 +15,16 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ---
 - name: Ensure DNS resolution of pi-hole.net is successful
-  ansible.builtin.shell: dig pi-hole.net @{{ unbound_interface }} {{ unbound_port }}
+  ansible.builtin.shell: dig pi-hole.net @{{ unbound_interface }} -p {{ unbound_port }}
   register: this
   failed_when: "('ANSWER SECTION' not in this.stdout) and ('NOERROR' not in this.stdout)"
 
 - name: Ensure DNSSEC validation returns SERVFAIL when expected
-  ansible.builtin.shell: dig sigfail.verteiltesysteme.net @{{ unbound_interface }} {{ unbound_port }}
+  ansible.builtin.shell: dig sigfail.verteiltesysteme.net @{{ unbound_interface }} -p {{ unbound_port }}
   register: this
   failed_when: "'ANSWER SECTION' in this.stdout"
 
 - name: Ensure DNSSEC validation returns NOERROR and an IP address when expected
-  ansible.builtin.shell: dig sigok.verteiltesysteme.net @{{ unbound_interface }} {{ unbound_port }}
+  ansible.builtin.shell: dig sigok.verteiltesysteme.net @{{ unbound_interface }} -p {{ unbound_port }}
   register: this
   failed_when: "('ANSWER SECTION' not in this.stdout) and ('NOERROR' not in this.stdout)"
