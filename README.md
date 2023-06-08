@@ -25,4 +25,13 @@ Log in to your PiHole admin panel and go to the Settings/DNS page.
 <!-- Untick any upstream DNS servers and add `127.0.0.1#5335` and `::1#5335` as upstream DNS servers. -->
 Untick any upstream DNS servers and add `127.0.0.1#5335` as an upstream DNS server.
 
+If you are running PiHole in a Docker container, you may instead want to specify the Pi's IP address on your local network.
+
+Additionally, you may want to create `/etc/dnsmasq.d/99-edns.conf` inside that container:
+```
+edns-packet-max=1232
+```
+Unbound is already configured to use this limit.
+Adding this file to the PiHole container signals FTL to also abide by this limit.
+
 Now, you're running your own private recursive DNS server on your PiHole. :tada: :tada:

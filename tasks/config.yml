@@ -23,8 +23,14 @@
     - Restart Unbound
     - Test DNS and DNSSEC configuration
 
+- name: Check if /etc/dnsmasq.d/ exists
+  ansible.builtin.stat:
+    path: /etc/dnsmasq.d/
+  register: dnsmasq
+
 - name: Reduce FTL (PiHole) EDNS reassembly buffer size
   ansible.builtin.template:
     src: templates/99-edns.conf.j2
     dest: /etc/dnsmasq.d/99-edns.conf
     mode: "0644" # rw-r--r--
+  when: dnsmasq.stat.exists
