@@ -21,9 +21,7 @@
     mode: "0644" # rw-r--r--
   notify:
     - Restart Unbound
-    - Ensure DNS resolution of pi-hole.net is successful
-    - Ensure DNSSEC validation returns SERVFAIL when expected
-    - Ensure DNSSEC validation returns NOERROR and an IP address when expected
+    - Test DNS and DNSSEC configuration
 
 - name: Reduce FTL (PiHole) EDNS reassembly buffer size
   ansible.builtin.template:
