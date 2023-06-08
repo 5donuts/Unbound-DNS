@@ -16,6 +16,7 @@ Modify `inventory.ini` with your pi's IP address (or specify `connection=local`)
 ## Usage
 
 Log in to your PiHole admin panel and go to the Settings/DNS page.
-Untick any upstream DNS servers and add `127.0.0.1#5335` and `::1#5335` as upstream DNS servers.
+<!-- Untick any upstream DNS servers and add `127.0.0.1#5335` and `::1#5335` as upstream DNS servers. -->
+Untick any upstream DNS servers and add `127.0.0.1#5335` as an upstream DNS server.
 
 Now, you're running your own private recursive DNS server on your PiHole. :tada: :tada:
