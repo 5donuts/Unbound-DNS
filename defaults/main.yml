@@ -39,6 +39,7 @@ harden_dnssec_stripped: "yes"
 use_caps_for_id: "no"
 
 # Reduce EDNS reassembly buffer size.
+# From https://docs.pi-hole.net/guides/dns/unbound/#configure-unbound:
 # IP fragmentation is unreliable on the Internet today, and can cause
 # transmission failures when large DNS messages are sent via UDP. Even
 # when fragmentation does work, it may not be secure; it is theoretically
