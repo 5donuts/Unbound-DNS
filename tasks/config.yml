@@ -14,27 +14,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ---
-- name: Configure Unbound for PiHole
-  hosts: pihole
-  become: true
+- name: Write /etc/unbound/unbound.conf.d/pi-hole.conf
+  ansible.builtin.template:
+    src: templates/pi-hole.conf.j2
+    dest: /etc/unbound/unbound.conf.d/pi-hole.conf
+    mode: "0644" # rw-r--r--
+  notify:
+    - Restart Unbound
+    - Ensure DNS resolution of pi-hole.net is successful
+    - Ensure DNSSEC validation returns SERVFAIL when expected
+    - Ensure DNSSEC validation returns NOERROR and an IP address when expected
 
-  pre_tasks:
-    - name: Ensure apt cache is up to date
-      ansible.builtin.apt:
-        update_cache: true
-        cache_valid_time: 3600
-
-    - name: Ensure dependencies are installed and up-to-date
-      ansible.builtin.apt:
-        state: latest
-        name:
-          - unbound
-          - dnsutils # for dig
-
-  handlers:
-    - name: Include handlers
-      ansible.builtin.import_tasks: tasks/handlers.yml
-
-  tasks:
-    - name: Write Unbound configuration files
-      ansible.builtin.import_tasks: tasks/config.yml
+- name: Reduce FTL (PiHole) EDNS reassembly buffer size
+  become: yes
+  ansible.builtin.template:
+    src: templates/99-edns.conf.j2
+    dest: /etc/dnsmasq.d/99-edns.conf
+    mode: "0644" # rw-r--r--
