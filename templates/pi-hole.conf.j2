@@ -1,5 +1,12 @@
 server:
     verbosity: {{ verbosity }}
+{% if log_queries is defined %}
+{% if log_queries %}
+    log-queries: "yes"
+{% else %}
+    log-queries: "no"
+{% endif %}
+{% endif %}
     interface: {{ unbound_bind_addr }}
     port: {{ unbound_port }}
     do-ip4: {{ do_ip4 }}
