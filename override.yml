@@ -1,6 +1,8 @@
 ---
 # If you wish to override any of the default values, you can do so here without
 # modifying defaults.yml
+# log_queries: yes # un-comment this line for Unbound to log DNS queries
+# verbosity: 1 # you may want more verbose logs as well
 
 # The network blocks to allow through UFW with both UDP and TCP connections.
 # We also allow TCP connections so that DNS requests that are too large can
