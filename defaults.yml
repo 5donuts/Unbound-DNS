@@ -18,6 +18,12 @@ unbound_bind_addr: 127.0.0.1
 unbound_test_addr: 127.0.0.1
 unbound_port: 5335
 
+# The network blocks to allow through UFW with both UDP and TCP connections.
+# We also allow TCP connections so that DNS requests that are too large can
+# also go through (see the comment on edns_buffer_size for details).
+dns_requesters:
+  - 192.168.0.0/16
+
 # See: https://docs.pi-hole.net/guides/dns/unbound/#configure-unbound
 verbosity: 0
 
