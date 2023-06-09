@@ -14,22 +14,36 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ---
-- name: Ensure unbound-resolvconf is disabled
-  ansible.builtin.systemd:
-    name: unbound-resolvconf
-    state: stopped
-
-- name: Disable the resolvconf_resolvers.conf from being generated
+- name: Check for an unbound entry in /etc/resolvconf.conf
   ansible.builtin.lineinfile:
     path: /etc/resolvconf.conf
     regexp: "^unbound_conf="
     state: absent
-  notify:
-    - Restart Unbound
+  check_mode: yes
+  changed_when: false # if the line is present, show 'ok' instead of 'changed'
+  register: resolvconf
 
-- name: Remove the resolvconf_resolvers.conf file
-  ansible.builtin.file:
-    path: /etc/unbound/unbound.conf.d/resolvconf_resolvers.conf
-    state: absent
-  notify:
-    - Restart Unbound
+# If there is an unbound entry in /etc/resolvconf.conf then we need to disable
+# unbound-resolvconf, modify /etc/resolvconf.conf, then restart unbound.
+# Otherwise, we can skip these tasks.
+- when: resolvconf.found
+  block:
+    - name: Ensure unbound-resolvconf is disabled
+      ansible.builtin.systemd:
+        name: unbound-resolvconf
+        state: stopped
+
+    - name: Disable the resolvconf_resolvers.conf from being generated
+      ansible.builtin.lineinfile:
+        path: /etc/resolvconf.conf
+        regexp: "^unbound_conf="
+        state: absent
+      notify:
+        - Restart Unbound
+
+    - name: Remove the resolvconf_resolvers.conf file
+      ansible.builtin.file:
+        path: /etc/unbound/unbound.conf.d/resolvconf_resolvers.conf
+        state: absent
+      notify:
+        - Restart Unbound
