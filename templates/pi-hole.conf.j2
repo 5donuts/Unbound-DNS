@@ -7,7 +7,9 @@ server:
     log-queries: "no"
 {% endif %}
 {% endif %}
-    interface: {{ unbound_bind_addr }}
+{% for interface in unbound_bind_addresses %}
+    interface: {{ interface }}
+{% endfor %}
     port: {{ unbound_port }}
     do-ip4: {{ do_ip4 }}
     do-udp: {{ do_udp }}

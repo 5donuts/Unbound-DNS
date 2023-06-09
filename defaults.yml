@@ -14,7 +14,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ---
-unbound_bind_addr: 127.0.0.1
+unbound_bind_addresses:
+  - 127.0.0.1
+  - ::1
 unbound_test_addr: 127.0.0.1
 unbound_port: 5335
 
