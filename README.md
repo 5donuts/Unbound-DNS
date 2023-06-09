@@ -25,7 +25,7 @@ Log in to your PiHole admin panel and go to the Settings/DNS page.
 <!-- Untick any upstream DNS servers and add `127.0.0.1#5335` and `::1#5335` as upstream DNS servers. -->
 Untick any upstream DNS servers and add `127.0.0.1#5335` as an upstream DNS server.
 
-If you are running PiHole in a Docker container, you may instead want to specify the Pi's IP address on your local network.
+If you are running PiHole in a Docker container, you may instead want to specify the the NAT address for your host available to the container (i.e., a `172.16.0.0/12` address).
 
 Additionally, you may want to create `/etc/dnsmasq.d/99-edns.conf` inside that container:
 ```
