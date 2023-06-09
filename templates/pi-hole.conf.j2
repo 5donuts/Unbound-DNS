@@ -11,6 +11,11 @@ server:
     interface: {{ interface }}
 {% endfor %}
     port: {{ unbound_port }}
+{% if unbound_access_controls is defined %}
+{% for control in unbound_access_controls %}
+    access-control: {{ control }}
+{% endfor %}
+{% endif %}
     do-ip4: {{ do_ip4 }}
     do-udp: {{ do_udp }}
     do-tcp: {{ do_tcp }}

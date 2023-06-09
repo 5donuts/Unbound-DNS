@@ -11,3 +11,20 @@ dns_requesters:
 unbound_bind_addresses:
   - 0.0.0.0
   - ::0
+
+# From /usr/share/doc/unbound/examples/unbound.conf:
+# control which clients are allowed to make (recursive) queries
+# to this server. Specify classless netblocks with /size and action.
+# By default everything is refused, except for localhost.
+# Choose deny (drop message), refuse (polite error reply),
+# allow (recursive ok), allow_setrd (recursive ok, rd bit is forced on),
+# allow_snoop (recursive and nonrecursive ok)
+# deny_non_local (drop queries unless can be answered from local-data)
+# refuse_non_local (like deny_non_local but polite error reply).
+# See also, https://blog.delouw.ch/2017/03/09/using-unbound-for-recursive-dns-loopup/
+unbound_access_controls:
+  - 0.0.0.0/0 refuse # deny ipv4 requests by default
+  - 127.0.0.0/8 allow # allow local ipv4 requests
+  - 172.16.0.0/12 allow # allow ipv4 requests from Docker containers
+  - ::0/0 refuse # deny ipv6 requests by default
+  - ::1 allow # allow local ipv6 requests
