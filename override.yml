@@ -6,8 +6,7 @@
 # We also allow TCP connections so that DNS requests that are too large can
 # also go through (see the comment on edns_buffer_size for details).
 dns_requesters:
-  - 192.168.0.0/16
-  - 172.16.0.0/12 # if you are running Docker containers on your PiHole, you want to allow these IPs
+  - 172.16.0.0/12 # allow DNS requests from Docker containers
 
 unbound_bind_addresses:
   - 0.0.0.0
