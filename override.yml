@@ -8,3 +8,6 @@
 dns_requesters:
   - 192.168.0.0/16
   - 172.16.0.0/12 # if you are running Docker containers on your PiHole, you want to allow these IPs
+
+# If you run PiHole in a Docker address, you cannot bind Unbound to the loopback addr.
+unbound_bind_addr: 0.0.0.0
