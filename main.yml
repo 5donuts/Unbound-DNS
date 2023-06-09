@@ -36,12 +36,16 @@
         name:
           - unbound
           - dnsutils # for dig
+          - ufw
 
   handlers:
     - name: Include handlers
       ansible.builtin.import_tasks: tasks/handlers.yml
 
   tasks:
+    - name: Update firewall rules
+      ansible.builtin.import_tasks: tasks/ufw.yml
+
     - name: Write Unbound configuration files
       ansible.builtin.import_tasks: tasks/config.yml
 

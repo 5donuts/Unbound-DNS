@@ -1,3 +1,10 @@
 ---
 # If you wish to override any of the default values, you can do so here without
 # modifying defaults.yml
+
+# The network blocks to allow through UFW with both UDP and TCP connections.
+# We also allow TCP connections so that DNS requests that are too large can
+# also go through (see the comment on edns_buffer_size for details).
+dns_requesters:
+  - 192.168.0.0/16
+  - 172.16.0.0/12 # if you are running Docker containers on your PiHole, you want to allow these IPs
