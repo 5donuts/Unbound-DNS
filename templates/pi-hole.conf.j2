@@ -1,5 +1,4 @@
 server:
-    # logfile: "/var/log/unbound/unbound.log"
     verbosity: {{ verbosity }}
     interface: {{ unbound_interface }}
     port: {{ unbound_port }}
@@ -8,7 +7,6 @@ server:
     do-tcp: {{ do_tcp }}
     do-ip6: {{ do_ip6 }}
     prefer-ip6: {{ prefer_ip6 }}
-    # root-hints: "/var/lib/unbound/root.hints"
     harden-glue: {{ harden_glue }}
     harden-dnssec-stripped: {{ harden_dnssec_stripped }}
     use-caps-for-id: {{ use_caps_for_id }}
