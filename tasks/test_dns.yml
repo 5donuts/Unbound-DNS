@@ -18,13 +18,16 @@
   ansible.builtin.shell: dig pi-hole.net @{{ unbound_interface }} -p {{ unbound_port }}
   register: this
   failed_when: "('ANSWER SECTION' not in this.stdout) and ('NOERROR' not in this.stdout)"
+  changed_when: false # either return 'ok' or 'failed', but not 'changed'
 
 - name: Ensure DNSSEC validation returns SERVFAIL when expected
   ansible.builtin.shell: dig sigfail.verteiltesysteme.net @{{ unbound_interface }} -p {{ unbound_port }}
   register: this
   failed_when: "'ANSWER SECTION' in this.stdout"
+  changed_when: false
 
 - name: Ensure DNSSEC validation returns NOERROR and an IP address when expected
   ansible.builtin.shell: dig sigok.verteiltesysteme.net @{{ unbound_interface }} -p {{ unbound_port }}
   register: this
   failed_when: "('ANSWER SECTION' not in this.stdout) and ('NOERROR' not in this.stdout)"
+  changed_when: false
